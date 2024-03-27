@@ -26,3 +26,4 @@
 /Users/poojadissanayake/Documents/Deakin/Trimester1/SIT771/BankAccountProgram/obj/Debug/net8.0/Bank.pdb
 /Users/poojadissanayake/Documents/Deakin/Trimester1/SIT771/BankAccountProgram/obj/Debug/net8.0/Bank.genruntimeconfig.cache
 /Users/poojadissanayake/Documents/Deakin/Trimester1/SIT771/BankAccountProgram/obj/Debug/net8.0/ref/Bank.dll
+/Users/poojadissanayake/Documents/Deakin/Trimester1/SIT771/BankAccountProgram/obj/Debug/net8.0/Bank.sourcelink.json

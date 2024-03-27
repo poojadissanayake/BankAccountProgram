@@ -89,7 +89,9 @@ namespace Bank
             Console.WriteLine("Enter the withdraw amount: ");
             amount = Convert.ToDecimal(Console.ReadLine());
 
-            account.Withdraw(amount);
+            WithdrawTransaction transaction = new WithdrawTransaction(account,amount);
+            transaction.Execute();
+            transaction.Print();
         }
 
         private static void DoPrint(Account account)

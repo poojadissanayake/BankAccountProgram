@@ -35,47 +35,51 @@ public class WithdrawTransaction
 
     public WithdrawTransaction(Account account, decimal amount)
     {
-        _account = account;
-        _amount = amount;
+        this._account = account;
+        this._amount = amount;
     }
 
     public void Execute()
     {
-        if (_executed)
+        if (this._executed)
         {
-            throw new Exception("Cannot execute this transaction");
+            throw new Exception("Already executed.. Cannot execute this transaction!");
         }
-        _executed = true;
-        _account.Withdraw(_amount);
-        _success = true;
+        this._executed = true;
+        this._account.Withdraw(_amount);
+        this._success = true;
     }
 
     public void Rollback()
     {
-        if (_executed != true)
+        if (this._executed != true)
         {
-            throw new Exception("Transaction has not been executed");
+            throw new Exception("Transaction has not been executed!");
         }
-        else if (!_reversed)
+        else if (!this._reversed)
         {
-            throw new Exception("Transaction has been reversed");
+            throw new Exception("Transaction has been reversed!");
         }
-        else if (_executed)
+        else if (this._executed)
         {
-            _account.Deposit(_amount);
-            _reversed = true;
+            this._account.Deposit(_amount);
+            this._reversed = true;
         }
 
     }
 
     public void Print()
     {
-        if(_success) {
+        if (this._success)
+        {
             Console.WriteLine("******************************");
             Console.WriteLine("Withdrawal was successful!");
-            Console.WriteLine($"Amount withdrawn: {_amount}");
+            Console.WriteLine($"Amount withdrawn: {this._amount}");
             Console.WriteLine("******************************");
 
+        }
+        if(this._reversed) {
+            Console.WriteLine("Transaction was reversed!");
         }
     }
 }
