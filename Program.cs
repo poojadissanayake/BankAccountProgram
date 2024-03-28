@@ -39,7 +39,7 @@ namespace Bank
                         break;
 
                     case MenuOption.Quit:
-                        Console.WriteLine("Quitting..");
+                        Console.WriteLine("\nQuitting...");
                         break;
                 }
             }
@@ -50,12 +50,12 @@ namespace Bank
             int option;
             do
             {
-                Console.WriteLine("Choose an option [1-4]: ");
-                Console.WriteLine("**********************************");
+                Console.WriteLine("Choose an option [1-4]: \n");
+                Console.WriteLine("**********************************\n");
                 Console.WriteLine("1 - Withdraw");
                 Console.WriteLine("2 - Deposit");
                 Console.WriteLine("3 - Print");
-                Console.WriteLine("4 - Quit");
+                Console.WriteLine("4 - Quit\n");
                 Console.WriteLine("**********************************");
                 try
                 {

@@ -68,9 +68,9 @@ public class DepositTransaction
     {
         if (this._success)
         {
-            Console.WriteLine("******************************");
+            Console.WriteLine("******************************\n");
             Console.WriteLine("Deposit was successful!");
-            Console.WriteLine($"Amount deposited: {this._amount}");
+            Console.WriteLine($"Amount deposited: {this._amount}\n");
             Console.WriteLine("******************************");
 
         }
