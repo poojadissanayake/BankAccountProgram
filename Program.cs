@@ -8,6 +8,7 @@ namespace Bank
     {
         Withdraw,
         Deposit,
+        Transaction,
         Print,
         Quit
     }
@@ -34,6 +35,10 @@ namespace Bank
                         DoWithdraw(myAccount);
                         break;
 
+                    case MenuOption.Transaction:
+                        DoTransfer(account, myAccount);
+                        break;
+
                     case MenuOption.Print:
                         DoPrint(myAccount);
                         break;
@@ -50,12 +55,13 @@ namespace Bank
             int option;
             do
             {
-                Console.WriteLine("Choose an option [1-4]: \n");
+                Console.WriteLine("Choose an option [1 - 5]: \n");
                 Console.WriteLine("**********************************\n");
                 Console.WriteLine("1 - Withdraw");
                 Console.WriteLine("2 - Deposit");
-                Console.WriteLine("3 - Print");
-                Console.WriteLine("4 - Quit\n");
+                Console.WriteLine("3 - Transfer funds");
+                Console.WriteLine("4 - Print");
+                Console.WriteLine("5 - Quit\n");
                 Console.WriteLine("**********************************");
                 try
                 {
@@ -68,7 +74,7 @@ namespace Bank
                 }
 
             }
-            while (option < 1 || option > 4);
+            while (option < 1 || option > 5);
             return (MenuOption)(option - 1);
         }
 
@@ -79,7 +85,7 @@ namespace Bank
             Console.WriteLine("Enter the deposit amount: ");
             amount = Convert.ToDecimal(Console.ReadLine());
 
-            DepositTransaction depositTransaction = new DepositTransaction(account,amount);
+            DepositTransaction depositTransaction = new DepositTransaction(account, amount);
             depositTransaction.Execute();
             depositTransaction.Print();
         }
@@ -91,9 +97,20 @@ namespace Bank
             Console.WriteLine("Enter the withdraw amount: ");
             amount = Convert.ToDecimal(Console.ReadLine());
 
-            WithdrawTransaction transaction = new WithdrawTransaction(account,amount);
+            WithdrawTransaction transaction = new WithdrawTransaction(account, amount);
             transaction.Execute();
             transaction.Print();
+        }
+
+        private static void DoTransfer(Account fromAccount, Account toAccount)
+        {
+            decimal amount;
+            Console.WriteLine("Enter amount to transfer: ");
+            amount = Convert.ToDecimal(Console.ReadLine());
+
+            TransferTransaction transferTransaction = new TransferTransaction(fromAccount, toAccount, amount);
+            transferTransaction.Execute();
+            transferTransaction.Print();
         }
 
         private static void DoPrint(Account account)

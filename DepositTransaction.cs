@@ -2,9 +2,9 @@ public class DepositTransaction
 {
     private Account _account;
     private decimal _amount;
-    private bool _executed;
-    private bool _success;
-    private bool _reversed;
+    private bool _executed = false;
+    private bool _success = false;
+    private bool _reversed = false;
 
     public bool Executed
     {

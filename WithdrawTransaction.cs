@@ -56,7 +56,7 @@ public class WithdrawTransaction
         {
             throw new Exception("Transaction has not been executed!");
         }
-        else if (!this._reversed)
+        else if (_reversed == true)
         {
             throw new Exception("Transaction has been reversed!");
         }
@@ -72,10 +72,10 @@ public class WithdrawTransaction
     {
         if (this._success)
         {
-            Console.WriteLine("******************************");
+            Console.WriteLine("******************************\n");
             Console.WriteLine("Withdrawal was successful!");
             Console.WriteLine($"Amount withdrawn: {this._amount}");
-            Console.WriteLine("******************************");
+            Console.WriteLine("\n******************************");
 
         }
         if(this._reversed) {

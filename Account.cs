@@ -50,7 +50,7 @@ public class Account
 
     public void Print()
     {
-        Console.WriteLine($"Hello Name: {this._name}!");
+        Console.WriteLine($"Name: {this._name}");
         Console.WriteLine($"Account Balance: {this._balance}");
     }
 }
