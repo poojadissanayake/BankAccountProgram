@@ -79,7 +79,9 @@ namespace Bank
             Console.WriteLine("Enter the deposit amount: ");
             amount = Convert.ToDecimal(Console.ReadLine());
 
-            account.Deposit(amount);
+            DepositTransaction depositTransaction = new DepositTransaction(account,amount);
+            depositTransaction.Execute();
+            depositTransaction.Print();
         }
 
         private static void DoWithdraw(Account account)
