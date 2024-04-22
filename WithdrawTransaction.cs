@@ -78,7 +78,8 @@ public class WithdrawTransaction
             Console.WriteLine("\n******************************");
 
         }
-        if(this._reversed) {
+        if (this._reversed)
+        {
             Console.WriteLine("Transaction was reversed!");
         }
     }
