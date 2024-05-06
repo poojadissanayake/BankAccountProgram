@@ -1,20 +1,9 @@
-public class DepositTransaction
+public class DepositTransaction : Transaction
 {
     private Account _account;
-    private decimal _amount;
-    private bool _executed = false;
     private bool _success = false;
-    private bool _reversed = false;
 
-    public bool Executed
-    {
-        get
-        {
-            return this._executed;
-        }
-    }
-
-    public bool Succeeded
+    public override bool Success
     {
         get
         {
@@ -22,59 +11,44 @@ public class DepositTransaction
         }
     }
 
-    public bool Reversed
-    {
-        get
-        {
-            return this._reversed;
-        }
-    }
-
-    public DepositTransaction(Account account, decimal amount)
+    public DepositTransaction(Account account, decimal amount) : base(amount)
     {
         this._account = account;
         this._amount = amount;
     }
 
-    public void Execute()
+    public override void Execute()
     {
-        if (this._executed)
+        if (Executed)
         {
             throw new Exception("Cannot proceed, Already executed!");
         }
-        this._executed = true;
-        this._account.Deposit(this._amount);
-        this._success = true;
+        base.Execute();
+        _account.Deposit(_amount);
+        _success = true;
     }
 
-    public void Rollback()
+    public override void Rollback()
     {
-        if (this._executed != true)
+        if (!Executed)
         {
             throw new Exception("Transaction has not been executed!");
         }
-        else if (this._executed)
-        {
-            this._account.Deposit(_amount);
-            this._reversed = true;
-        }
-        else if (!this._reversed)
-        {
-            throw new Exception("Transaction has been reversed!");
-        }
+        base.Rollback();
+        _account.Deposit(_amount);
     }
 
-    public void Print()
+    public override void Print()
     {
-        if (this._success)
+        if (Success)
         {
             Console.WriteLine("******************************\n");
             Console.WriteLine("Deposit was successful!");
-            Console.WriteLine($"Amount deposited: {this._amount}\n");
+            Console.WriteLine($"Amount deposited: {this._amount} at {DateStamp}\n");
             Console.WriteLine("******************************");
 
         }
-        if (this._reversed)
+        if (Reversed)
         {
             Console.WriteLine("Transaction was reversed!");
         }

@@ -1,84 +1,53 @@
 using System;
 
-public class WithdrawTransaction
+public class WithdrawTransaction : Transaction
 {
     private Account _account;
-    private decimal _amount;
-    private bool _executed = false;
     private bool _success = false;
-    private bool _reversed = false;
 
 
-    public bool Success
+    public override bool Success { get { return _success; } }
+
+
+    public WithdrawTransaction(Account account, decimal amount) : base(amount)
     {
-        get
-        {
-            return this._success;
-        }
+        _account = account;
     }
 
-    public bool Executed
+    public override void Execute()
     {
-        get
-        {
-            return this._executed;
-        }
-    }
-
-    public bool Reversed
-    {
-        get
-        {
-            return this._reversed;
-        }
-    }
-
-    public WithdrawTransaction(Account account, decimal amount)
-    {
-        this._account = account;
-        this._amount = amount;
-    }
-
-    public void Execute()
-    {
-        if (this._executed)
+        if (Executed)
         {
             throw new Exception("Already executed.. Cannot execute this transaction!");
         }
-        this._executed = true;
-        this._account.Withdraw(_amount);
-        this._success = true;
+
+        base.Execute();
+        _account.Withdraw(_amount);
+        _success = true;
     }
 
-    public void Rollback()
+    public override void Rollback()
     {
-        if (this._executed != true)
+        if (!Executed)
         {
             throw new Exception("Transaction has not been executed!");
         }
-        else if (_reversed == true)
-        {
-            throw new Exception("Transaction has been reversed!");
-        }
-        else if (this._executed)
-        {
-            this._account.Deposit(_amount);
-            this._reversed = true;
-        }
+        base.Rollback();
+        _account.Deposit(_amount);
 
     }
 
-    public void Print()
+    public override void Print()
     {
-        if (this._success)
+        if (Success)
         {
             Console.WriteLine("******************************\n");
             Console.WriteLine("Withdrawal was successful!");
-            Console.WriteLine($"Amount withdrawn: {this._amount}");
+            Console.WriteLine($"Amount withdrawn: {this._amount} at {DateStamp}");
             Console.WriteLine("\n******************************");
 
         }
-        if (this._reversed)
+        if (Reversed)
         {
             Console.WriteLine("Transaction was reversed!");
         }

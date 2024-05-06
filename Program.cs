@@ -12,6 +12,7 @@ namespace BankAccount
         Transaction,
         Print,
         NewAccount,
+        PrintTranscationHistory,
         Quit
 
     }
@@ -19,8 +20,6 @@ namespace BankAccount
     {
         public static void Main()
         {
-            Account account = new Account("Jake's Account", 20000);
-            Account myAccount = new Account("Pooja's Account", 30000);
             Bank bank = new Bank();
 
             MenuOption userSelection;
@@ -54,6 +53,10 @@ namespace BankAccount
                     case MenuOption.NewAccount:
                         NewAccount();
                         break;
+
+                    case MenuOption.PrintTranscationHistory:
+                        PrintTransactions(bank);
+                        break;
                 }
             }
             while (userSelection != MenuOption.Quit);
@@ -71,7 +74,8 @@ namespace BankAccount
                 Console.WriteLine("3 - Transfer funds");
                 Console.WriteLine("4 - Print");
                 Console.WriteLine("5 - Add New Account");
-                Console.WriteLine("6 - Quit\n");
+                Console.WriteLine("6 - Print Transaction History");
+                Console.WriteLine("7 - Quit\n");
 
                 Console.WriteLine("**********************************");
                 try
@@ -85,7 +89,7 @@ namespace BankAccount
                 }
 
             }
-            while (option < 1 || option > 6);
+            while (option < 1 || option > 7);
             return (MenuOption)(option - 1);
         }
 
@@ -99,6 +103,11 @@ namespace BankAccount
 
             Account newAccount = new Account(accountName, amount);
             Bank.AddAccount(newAccount);
+        }
+
+        private static void PrintTransactions(Bank bank)
+        {
+            bank.PrintTranscationHistory();
         }
 
         private static Account FindAccount(Bank fromBank)
@@ -146,13 +155,13 @@ namespace BankAccount
 
         private static void DoTransfer(Bank bank)
         {
-            Console.WriteLine("From Account ");
+            Console.WriteLine("\nFrom Account ");
             Console.WriteLine("..........................\n");
 
             Account fromAccount = FindAccount(bank);
             if (fromAccount == null) return;
 
-            Console.WriteLine("To Account ");
+            Console.WriteLine("\nTo Account ");
             Console.WriteLine("..........................\n");
 
             Account toAccount = FindAccount(bank);
@@ -163,7 +172,7 @@ namespace BankAccount
             amount = Convert.ToDecimal(Console.ReadLine());
 
             TransferTransaction transferTransaction = new TransferTransaction(fromAccount, toAccount, amount);
-            
+
             bank.ExecuteTransaction(transferTransaction);
             transferTransaction.Print();
         }

@@ -5,6 +5,7 @@ public class Bank
 {
 
     private static List<Account> _accounts = new List<Account>();
+    private List<Transaction> _transactions = new List<Transaction>();
 
     public static void AddAccount(Account account)
     {
@@ -22,16 +23,18 @@ public class Bank
         return null;
     }
 
-    public void ExecuteTransaction(WithdrawTransaction transaction)
+    public void ExecuteTransaction(Transaction transaction)
     {
+        _transactions.Add(transaction);
         transaction.Execute();
+
     }
-    public void ExecuteTransaction(DepositTransaction transaction)
+
+    public void PrintTranscationHistory()
     {
-        transaction.Execute();
-    }
-    public void ExecuteTransaction(TransferTransaction transaction)
-    {
-        transaction.Execute();
+        foreach (Transaction transcation in _transactions)
+        {
+            transcation.Print();
+        }
     }
 }
